@@ -26,17 +26,14 @@ namespace Task2Logic
 
         #region public method
         /// <summary>
-        /// culculation nod of 2 whole number. Using Evklid method
+        /// culculation GDC of 2 whole number. Using Evklid method
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        public long NodEvklid(long a, long b)
+        public long GDCEvklid(long a, long b)
         {
-            StartTimer();
-            var result =  Evklid(a, b);
-            StopTimer();
-            return result;
+            return diagnostic(Evklid, a, b);
         }
         /// <summary>
         /// culculation nod of 3 or more whole number. Using Evklid method
@@ -45,18 +42,9 @@ namespace Task2Logic
         /// <param name="b"></param>
         /// <param name="arg"></param>
         /// <returns></returns>
-        public long NodEvklid(long a, long b, params long[] arg)
+        public long GDCEvklid(long a, long b, params long[] arg)
         {
-            StartTimer();
-
-            var result = Evklid(a, b);
-            foreach (long item in arg)
-            { 
-                result = Evklid(result, item); 
-            }
-
-            StopTimer();
-            return result;
+            return diagnostic(Evklid, a, b, arg);
         }
         /// <summary>
         /// culculation nod of 2 whole number. Using Stein method
@@ -64,12 +52,9 @@ namespace Task2Logic
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        public long NodStein(long a, long b)
+        public long GDCStein(long a, long b)
         {
-            StartTimer();
-            var result = Stein(a, b);
-            StopTimer();
-            return result;            
+            return diagnostic(Stein, a, b);
         }
         /// <summary>
         /// culculation nod of 3 or more whole number. Using Stein method
@@ -78,18 +63,44 @@ namespace Task2Logic
         /// <param name="b"></param>
         /// <param name="arg"></param>
         /// <returns></returns>
-        public long NodStein(long a, long b, params long[] arg)
+        public long GDCStein(long a, long b, params long[] arg)
         {
-            StartTimer();
-            var result = Stein(a, b);
-            foreach (long item in arg)
-            { result = Stein(result, item); }
-            StopTimer();
-            return result;
+            return diagnostic(Stein, a, b, arg);
         }
         #endregion
 
+        delegate long GDC(long a, long b);
+        
+
         #region private method
+        private long diagnostic(GDC action,long a,long b)
+        {
+            watch.Start();
+
+            var result = action(a,b);
+            
+            watch.Stop();
+            time = watch.Elapsed;
+            watch.Reset();
+
+            return result;
+        }
+        private long diagnostic(GDC action, long a, long b, long[] arg)
+        {
+            watch.Start();
+
+            var result = action(a, b);
+            foreach (long item in arg)
+            {
+                result = action(result, item);
+            }
+
+            watch.Stop();
+            time = watch.Elapsed;
+            watch.Reset();
+
+            return result;
+        }
         private void StartTimer()
         {
             watch.Start();
