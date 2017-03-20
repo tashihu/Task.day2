@@ -14,14 +14,12 @@ using System.Diagnostics;
  * для расчета НОД двух целых чисел. Метод должен также определять значение времени, 
  * необходимое для выполнения расчетов. Добавить к разработанному типу дополнительную функциональность 
  * в виде перегруженных методов вычисления НОД для трех и т.д. целых чисел.
- */
+ *//*
 namespace Task2Logic
 {
     public class MathTool
     {
         #region fields
-        public TimeSpan time { get; set; }
-        private Stopwatch watch = new Stopwatch();
         #endregion
 
         #region public method
@@ -32,8 +30,8 @@ namespace Task2Logic
         /// <param name="b"></param>
         /// <returns></returns>
         public long GDCEvklid(long a, long b)
-        {
-            return diagnostic(Evklid, a, b);
+        {            
+            return  Evklid( a, b);
         }
         /// <summary>
         /// culculation nod of 3 or more whole number. Using Evklid method
@@ -44,7 +42,8 @@ namespace Task2Logic
         /// <returns></returns>
         public long GDCEvklid(long a, long b, params long[] arg)
         {
-            return diagnostic(Evklid, a, b, arg);
+            Testing test = new Testing();
+            return test.diagnostic(Evklid, a, b, arg);            
         }
         /// <summary>
         /// culculation nod of 2 whole number. Using Stein method
@@ -54,7 +53,8 @@ namespace Task2Logic
         /// <returns></returns>
         public long GDCStein(long a, long b)
         {
-            return diagnostic(Stein, a, b);
+            Testing test = new Testing();
+            return test.diagnostic(Stein, a, b);
         }
         /// <summary>
         /// culculation nod of 3 or more whole number. Using Stein method
@@ -65,52 +65,15 @@ namespace Task2Logic
         /// <returns></returns>
         public long GDCStein(long a, long b, params long[] arg)
         {
-            return diagnostic(Stein, a, b, arg);
+            Testing test = new Testing();
+            return test.diagnostic(Stein, a, b, arg);
         }
         #endregion
 
-        delegate long GDC(long a, long b);
-        
-
         #region private method
-        private long diagnostic(GDC action,long a,long b)
-        {
-            watch.Start();
 
-            var result = action(a,b);
-            
-            watch.Stop();
-            time = watch.Elapsed;
-            watch.Reset();
 
-            return result;
-        }
-        private long diagnostic(GDC action, long a, long b, long[] arg)
-        {
-            watch.Start();
-
-            var result = action(a, b);
-            foreach (long item in arg)
-            {
-                result = action(result, item);
-            }
-
-            watch.Stop();
-            time = watch.Elapsed;
-            watch.Reset();
-
-            return result;
-        }
-        private void StartTimer()
-        {
-            watch.Start();
-        }
-        private void StopTimer()
-        {
-            watch.Stop();
-            time = watch.Elapsed;
-            watch.Reset();
-        }
+       
         private long Evklid(long a, long b)
         {
             long c = 0;
@@ -136,3 +99,4 @@ namespace Task2Logic
         #endregion
     }
 }
+*/
